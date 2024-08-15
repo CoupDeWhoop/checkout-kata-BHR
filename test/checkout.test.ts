@@ -13,4 +13,15 @@ describe('checkout test', () => {
 
         expect(actual).toBe(0);
     });
+
+    it.each([
+        { input: 'A', expected: 50 },
+        { input: 'B', expected: 30 },
+        { input: 'C', expected: 20 },
+        { input: 'D', expected: 15 },
+    ])('when passed $input should return $expected', ({ input, expected }) => {
+        sut.scan(input);
+        const actual = sut.getTotalPrice();
+        expect(actual).toBe(expected);
+    });
 });

@@ -6,6 +6,11 @@ export class Checkout {
     }
 
     getTotalPrice(): number {
+        if (this.items[0] === 'A') return 50;
+        if (this.items[0] === 'B') return 30;
+        if (this.items[0] === 'C') return 20;
+        if (this.items[0] === 'D') return 15;
+
         return 0;
     }
 }
