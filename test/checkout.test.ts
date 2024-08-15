@@ -30,6 +30,13 @@ describe('Checkout Tests', () => {
         );
     });
 
+    it('should ignore an unknown item', () => {
+        ['A', '%', 'A'].forEach((item) => sut.scan(item));
+        const actual = sut.getTotalPrice();
+
+        expect(actual).toBe(100);
+    });
+
     describe('Multiple items', () => {
         it.each([
             { input: ['A', 'A'], expected: 100 },

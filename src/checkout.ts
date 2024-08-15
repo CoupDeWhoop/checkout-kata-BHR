@@ -10,8 +10,8 @@ export class Discount {
     private quantity: number;
     private discount: number;
 
-    constructor(item: string, quantity: number, discount: number) {
-        this.item = item;
+    constructor(itemCode: string, quantity: number, discount: number) {
+        this.item = itemCode;
         this.quantity = quantity;
         this.discount = discount;
     }
