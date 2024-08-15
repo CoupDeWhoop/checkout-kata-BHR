@@ -1,6 +1,6 @@
 import { Checkout } from '../src/checkout';
 
-describe('checkout test', () => {
+describe('Checkout Tests', () => {
     let sut: Checkout;
 
     beforeEach(() => {
@@ -45,4 +45,6 @@ describe('checkout test', () => {
             }
         );
     });
+
+    describe('', () => {});
 });

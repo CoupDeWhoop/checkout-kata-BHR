@@ -1,3 +1,10 @@
+const prices: { [key: string]: number } = {
+    A: 50,
+    B: 30,
+    C: 20,
+    D: 15,
+};
+
 export class Checkout {
     private items: string[] = [];
 
@@ -8,10 +15,7 @@ export class Checkout {
     getTotalPrice(): number {
         let total = 0;
         this.items.forEach((item) => {
-            if (item === 'A') total += 50;
-            if (item === 'B') total += 30;
-            if (item === 'C') total += 20;
-            if (item === 'D') total += 15;
+            total += prices[item] || 0;
         });
         return total;
     }
