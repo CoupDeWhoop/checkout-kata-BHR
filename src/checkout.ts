@@ -12,11 +12,19 @@ export class Checkout {
         this.items.push(item);
     }
 
+    calculateDiscount(): number {
+        const ACount = this.items.filter((item) => item === 'A').length;
+        const ADiscount = Math.floor(ACount / 3) * 20;
+        console.log(ACount, ADiscount);
+        return ADiscount;
+    }
     getTotalPrice(): number {
         let total = 0;
         this.items.forEach((item) => {
             total += prices[item] || 0;
         });
+
+        total -= this.calculateDiscount();
         return total;
     }
 }

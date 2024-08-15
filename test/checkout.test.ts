@@ -46,5 +46,12 @@ describe('Checkout Tests', () => {
         );
     });
 
-    describe('', () => {});
+    describe('discounts', () => {
+        it('should apply a discount for 3 As', () => {
+            ['A', 'A', 'A'].forEach((item) => sut.scan(item));
+            const actual = sut.getTotalPrice();
+
+            expect(actual).toBe(130);
+        });
+    });
 });
