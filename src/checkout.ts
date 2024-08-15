@@ -5,6 +5,25 @@ const prices: { [key: string]: number } = {
     D: 15,
 };
 
+export class Discount {
+    private item: string;
+    private quantity: number;
+    private discount: number;
+
+    constructor(item: string, quantity: number, discount: number) {
+        this.item = item;
+        this.quantity = quantity;
+        this.discount = discount;
+    }
+
+    calculateDiscount(itemsList: string[]): number {
+        const itemCount = itemsList.filter((item) => item === this.item).length;
+        const itemDiscount =
+            Math.floor(itemCount / this.quantity) * this.discount;
+        return itemDiscount;
+    }
+}
+
 export class Checkout {
     private items: string[] = [];
 
@@ -13,13 +32,12 @@ export class Checkout {
     }
 
     calculateDiscount(): number {
-        const ACount = this.items.filter((item) => item === 'A').length;
-        const BCount = this.items.filter((item) => item === 'B').length;
-
-        const ADiscount = Math.floor(ACount / 3) * 20;
-        const BDiscount = Math.floor(BCount / 2) * 15;
-
-        return ADiscount + BDiscount;
+        const ADiscount = new Discount('A', 3, 20);
+        const BDiscount = new Discount('B', 2, 15);
+        const totalDiscount =
+            ADiscount.calculateDiscount(this.items) +
+            BDiscount.calculateDiscount(this.items);
+        return totalDiscount;
     }
 
     getTotalPrice(): number {
