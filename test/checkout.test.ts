@@ -33,7 +33,7 @@ describe('Checkout Tests', () => {
     describe('Multiple items', () => {
         it.each([
             { input: ['A', 'A'], expected: 100 },
-            { input: ['B', 'B'], expected: 60 },
+            { input: ['B', 'C'], expected: 50 },
             { input: ['C', 'D'], expected: 35 },
             { input: ['A', 'B', 'C', 'D'], expected: 115 },
         ])(
@@ -47,11 +47,18 @@ describe('Checkout Tests', () => {
     });
 
     describe('discounts', () => {
-        it('should apply a discount for 3 As', () => {
-            ['A', 'A', 'A'].forEach((item) => sut.scan(item));
-            const actual = sut.getTotalPrice();
-
-            expect(actual).toBe(130);
-        });
+        it.each([
+            { input: ['A', 'A', 'A'], expected: 130 },
+            { input: ['B', 'B'], expected: 45 },
+            { input: ['B', 'B', 'D'], expected: 60 },
+            { input: ['A', 'A', 'A', 'B', 'B', 'B', 'B'], expected: 220 },
+        ])(
+            'when passed $input should return $expected',
+            ({ input, expected }) => {
+                input.forEach((item) => sut.scan(item));
+                const actual = sut.getTotalPrice();
+                expect(actual).toBe(expected);
+            }
+        );
     });
 });

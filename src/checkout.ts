@@ -14,10 +14,14 @@ export class Checkout {
 
     calculateDiscount(): number {
         const ACount = this.items.filter((item) => item === 'A').length;
+        const BCount = this.items.filter((item) => item === 'B').length;
+
         const ADiscount = Math.floor(ACount / 3) * 20;
-        console.log(ACount, ADiscount);
-        return ADiscount;
+        const BDiscount = Math.floor(BCount / 2) * 15;
+
+        return ADiscount + BDiscount;
     }
+
     getTotalPrice(): number {
         let total = 0;
         this.items.forEach((item) => {
