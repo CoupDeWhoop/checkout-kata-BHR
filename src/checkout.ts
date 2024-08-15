@@ -6,11 +6,13 @@ export class Checkout {
     }
 
     getTotalPrice(): number {
-        if (this.items[0] === 'A') return 50;
-        if (this.items[0] === 'B') return 30;
-        if (this.items[0] === 'C') return 20;
-        if (this.items[0] === 'D') return 15;
-
-        return 0;
+        let total = 0;
+        this.items.forEach((item) => {
+            if (item === 'A') total += 50;
+            if (item === 'B') total += 30;
+            if (item === 'C') total += 20;
+            if (item === 'D') total += 15;
+        });
+        return total;
     }
 }
