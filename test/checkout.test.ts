@@ -1,10 +1,16 @@
-import { Checkout } from '../src/checkout';
+import { Shop } from '../src/checkout';
 
 describe('Checkout Tests', () => {
-    let sut: Checkout;
+    let sut: Shop;
 
     beforeEach(() => {
-        sut = new Checkout();
+        sut = new Shop();
+        sut.addItem('A', 50);
+        sut.addItem('B', 30);
+        sut.addItem('C', 20);
+        sut.addItem('D', 15);
+        sut.addDiscount('A', 3, 20);
+        sut.addDiscount('B', 2, 15);
     });
 
     it('should return 0 when passed empty string', () => {

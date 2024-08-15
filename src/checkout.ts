@@ -1,19 +1,16 @@
-const prices: { [key: string]: number } = {
-    A: 50,
-    B: 30,
-    C: 20,
-    D: 15,
-};
+interface Price {
+    [key: string]: number;
+}
 
 export class Discount {
     private item: string;
     private quantity: number;
     private discount: number;
 
-    constructor(itemCode: string, quantity: number, discount: number) {
+    constructor(itemCode: string, quantity: number, reduction: number) {
         this.item = itemCode;
         this.quantity = quantity;
-        this.discount = discount;
+        this.discount = reduction;
     }
 
     calculateDiscount(itemsList: string[]): number {
@@ -24,26 +21,34 @@ export class Discount {
     }
 }
 
-export class Checkout {
-    private items: string[] = [];
+export class Shop {
+    discountList: Discount[] = [];
 
-    scan(item: string): void {
-        this.items.push(item);
+    priceList: { [key: string]: number } = {};
+    basket: string[] = [];
+
+    addItem(sku: string, price: number) {
+        this.priceList[sku] = price;
     }
 
+    addDiscount(itemCode: string, quantity: number, reduction: number) {
+        const discount = new Discount(itemCode, quantity, reduction);
+        this.discountList.push(discount);
+    }
+
+    scan(item: string): void {
+        this.basket.push(item);
+    }
     calculateDiscount(): number {
-        const ADiscount = new Discount('A', 3, 20);
-        const BDiscount = new Discount('B', 2, 15);
-        const totalDiscount =
-            ADiscount.calculateDiscount(this.items) +
-            BDiscount.calculateDiscount(this.items);
-        return totalDiscount;
+        return this.discountList.reduce((total, discount) => {
+            return total + discount.calculateDiscount(this.basket);
+        }, 0);
     }
 
     getTotalPrice(): number {
         let total = 0;
-        this.items.forEach((item) => {
-            total += prices[item] || 0;
+        this.basket.forEach((item) => {
+            total += this.priceList[item] || 0;
         });
 
         total -= this.calculateDiscount();
